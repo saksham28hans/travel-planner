@@ -16,7 +16,7 @@ router.post('/favourite',async(req,res)=>{
         }
         else
         {
-            await user.updateOne({ $pull : {favourite:req.body.podcast}})
+            await user.updateOne({ $pull : {favourite:req.body.destination}})
             res.status(200).json("Destination was removed from favourite list")
         }
         }
@@ -24,3 +24,5 @@ router.post('/favourite',async(req,res)=>{
         res.status(500).json(error);
     }
 })
+
+module.exports = router
