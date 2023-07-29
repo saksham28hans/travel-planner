@@ -1,3 +1,6 @@
+.main{
+  z-index: -1;
+}
 /* CarouselComponent.css */
 .he{
     height: 600px !important;

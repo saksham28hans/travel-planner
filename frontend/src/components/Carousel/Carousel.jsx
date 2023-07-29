@@ -29,7 +29,7 @@ const Carousels = () => {
     }, [interval, slides.length]);
   
     return (
-      <Carousel activeIndex={index} onSelect={handleSelect}>
+      <Carousel activeIndex={index} onSelect={handleSelect} className="main">
         {slides.map((slide) => (
           <Carousel.Item key={slide.id}>
             <img
