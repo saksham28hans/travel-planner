@@ -4,9 +4,19 @@ import { Container,Col, Form, FormGroup } from 'reactstrap';
 import MyMap from '../components/MyMap/MyMap';
 
 const SearchBar = () => {
+  const locationRef = useRef('');
+  const distanceRef = useRef(0);
+  const maxGroupSizeRef = useRef(0);
 
   const searchHandler = async () => {
-
+    const location = locationRef.current.value;
+    const distance = distanceRef.current.value;
+    const maxGroupSize = maxGroupSizeRef.current.value;
+  
+  console.log(location, distance, maxGroupSize);
+    if (location === '' || distance === '' || maxGroupSize === '') {
+      return alert('All fields are required');
+    }
   };
   return (
     <Col lg="12">
@@ -21,6 +31,7 @@ const SearchBar = () => {
               <input
                 type="text"
                 placeholder="Where are you going?"
+                ref={locationRef}
               ></input>
             </div>
           </FormGroup>
@@ -33,6 +44,7 @@ const SearchBar = () => {
               <input
                 type="number"
                 placeholder="Distance k/m"
+                ref={distanceRef}
               ></input>
             </div>
           </FormGroup>
@@ -45,6 +57,7 @@ const SearchBar = () => {
               <input
                 type="number"
                 placeholder="0"
+                ref={maxGroupSizeRef}
               ></input>
             </div>
           </FormGroup>
