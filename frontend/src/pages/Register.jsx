@@ -1,17 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../styles/login.css';
+import axios from "axios";
 import { Container, Row, Col, Button, Form, FormGroup } from 'reactstrap';
-import { Link} from 'react-router-dom';
+import { Link, useNavigate} from 'react-router-dom';
 import registerImg from '../assets/images/register.png';
 import userICon from '../assets/images/user.png';
+const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 const Register = () => {
+  const navigate = useNavigate();
+  const [credentials, setCredentials] = useState({
+    username:null,
+    email: null,
+    password: null,
+  });
   const handleChange = (e) => {
-
+    setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleClick = async (e) => {
-    e.preventDeafult();
-    
+    e.preventDefault();
+    try {
+      await axiosInstance.post('/auth/register',credentials);
+      navigate('/login')
+    } catch (error) {
+     console.log(error);
+    }
   };
   return (
     <section>

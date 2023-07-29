@@ -10,6 +10,10 @@
 .menu {
   margin-bottom: 0;
 }
+/* .nav__item
+{
+  margin-right: 12%;
+} */
 .nav__item a {
   text-decoration: none;
   color: var(--heading-color);
@@ -53,6 +57,7 @@
     left: 0;
     background: rgba(0, 0, 0, 0.411);
     z-index: 999;
+    
   }
   .menu {
     position: absolute;
@@ -81,4 +86,8 @@
   .menu {
     width: calc(100%-50%);
   }
+}
+.nav__right
+{
+  margin-left: 2%;
 }

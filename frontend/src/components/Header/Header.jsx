@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from 'reactstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 import './header.css';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { logout } from '../../context/authContext/AuthActions';
 const nav_links = [
   {
     path: '/home',
@@ -14,11 +16,12 @@ const nav_links = [
   }
 ];
 const Header = () => {
-  const [user, setuser] = useState("mohit");
+  const { user,dispatch } = useContext(AuthContext);
   const navigate = useNavigate();
-  const logout = () => {
-    navigate('/');
-  };
+  // const logout = () => {
+
+  //   navigate('/');
+  // };
   
   useEffect(() => {
 
@@ -51,14 +54,14 @@ const Header = () => {
               <div className="nav__btns d-flex align-item-center gap-4">
                 {user ? (
                   <>
-                    <h5 className="mb-0">{user.username}</h5>
-                    <Button className="btn btn-dark" onClick={logout}>
+                    <h5 style={{margin:'auto'}}>{user.username}</h5>
+                    <Button className="btn btn-dark" onClick={()=>dispatch(logout())}>
                       Logout
                     </Button>
                   </>
                 ) : (
                   <>
-                    <Button className="btn secondary__btn">
+                    <Button className="btn primary__btn">
                       <Link to="/login">Login</Link>
                     </Button>
                     <Button className="btn primary__btn">

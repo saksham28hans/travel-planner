@@ -1,23 +1,32 @@
-import React, { useState} from 'react';
+import React, { useContext, useState} from 'react';
 import '../styles/login.css';
 import {Col, Button, Form, FormGroup } from 'reactstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import loginImg from '../assets/images/login.png';
 import userICon from '../assets/images/user.png';
+import { AuthContext } from '../context/authContext/AuthContext';
+import { login } from '../context/authContext/apiCalls';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: undefined,
-    password: undefined,
+    email: null,
+    password: null,
   });
+  const {error,dispatch} = useContext(AuthContext);
   const navigate = useNavigate();
   const handleChange = (e) => {
     setCredentials((prev) => ({ ...prev, [e.target.id]: e.target.value }));
   };
 
   const handleClick = async(e) => {
-    e.preventDeafult();
-    
+    e.preventDefault();
+    try {
+      login(credentials,dispatch);
+      if(!error)
+       navigate('/home')
+    } catch (error) {
+      console.log(error)
+    }
   };
   return (
     <section>
