@@ -1,6 +1,6 @@
 import React from 'react';
 import './footer.css';
-import {Col, ListGroup, ListGroupItem } from 'reactstrap';
+import { Container, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
 const quick__links = [
@@ -11,6 +11,10 @@ const quick__links = [
   {
     path: '/about',
     display: 'About',
+  },
+  {
+    path: '/tours',
+    display: 'My Tours',
   },
 ];
 const quick__links2 = [
@@ -30,13 +34,13 @@ const quick__links2 = [
 const Footer = () => {
   return (
     <footer className="footer">
-      <div className="container row">
+      <Container>
+        <Row>
           <Col lg="3">
             <div className="logo">
               <img src={logo} alt="" />
               <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Phasellus lobortis urna sit amet efficitur hendrerit.
+                XXXXXX
               </p>
               <div className="social__links d-flex align-items-center gap-4">
                 <span>
@@ -101,7 +105,7 @@ const Footer = () => {
                   </span>
                   Email:
                 </h6>
-                <p className="mb-0">abc@gmail.com</p>
+                <p className="mb-0">Saksham@gmail.com</p>
               </ListGroupItem>
               <ListGroupItem className="ps-0 border-0 d-flex align-items-center gap-3">
                 <h6 className="mb-0 d-flex align-items-center gap-2">
@@ -114,7 +118,8 @@ const Footer = () => {
               </ListGroupItem>
             </ListGroup>
           </Col>
-      </div>
+        </Row>
+      </Container>
     </footer>
   );
 };

@@ -5,6 +5,7 @@ import SearchBar from "../shared/SearchBar";
 import { Col, Container, Row } from "reactstrap";
 import Subtitle from '../shared/Subtitle';
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList";
+import MassonryGalleryImages from "../components/Image-gallery/MassonryGalleryImages";
 const Home = () => {
   return (
     <>
@@ -30,6 +31,19 @@ const Home = () => {
               <h2 className="featured__tour-title">Our featured tours</h2>
             </Col>
             <FeaturedTourList />
+          </Row>
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <Row>
+            <Col lg="12">
+              <Subtitle subtitle={'Gallery'}></Subtitle>
+              <h2 className="gallery__title">
+                Visit our customers tour gallery
+              </h2>
+            </Col>
+            <Col lg='12'><MassonryGalleryImages/></Col>
           </Row>
         </Container>
       </section>
