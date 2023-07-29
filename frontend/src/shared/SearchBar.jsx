@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import './search-bar.css';
-import { Col, Form, FormGroup } from 'reactstrap';
+import { Container,Col, Form, FormGroup } from 'reactstrap';
+import MyMap from '../components/MyMap/MyMap';
 
 const SearchBar = () => {
 
@@ -51,6 +52,11 @@ const SearchBar = () => {
             <i class="ri-search-line"></i>
           </span>
         </Form>
+        <div>
+        <Container className='map'>
+          <MyMap/>
+        </Container>
+        </div>
       </div>
     </Col>
   );
