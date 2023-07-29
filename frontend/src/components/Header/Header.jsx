@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button } from 'reactstrap';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 import logo from '../../assets/images/logo.png';
@@ -13,7 +13,11 @@ const nav_links = [
   {
     path: '/about',
     display: 'About',
-  }
+  },
+  {
+    path: '/tours',
+    display: 'My Tours',
+  },
 ];
 const Header = () => {
   const { user,dispatch } = useContext(AuthContext);
@@ -29,7 +33,8 @@ const Header = () => {
 
   return (
     <header className="header">
-      <div className='container'>
+      <Container>
+        <Row>
           <div className="nav_wrapper d-flex align-items-center justify-content-between">
             <div className="logo">
               <img src={logo} alt="" />
@@ -52,7 +57,7 @@ const Header = () => {
             </div>
             <div className="nav__right d-flex align-items-center gap-4">
               <div className="nav__btns d-flex align-item-center gap-4">
-                {user ? (
+                {false ? (
                   <>
                     <h5 style={{margin:'auto'}}>{user.username}</h5>
                     <Button className="btn btn-dark" onClick={()=>dispatch(logout())}>
@@ -70,12 +75,13 @@ const Header = () => {
                   </>
                 )}
               </div>
-              <span className="mobile__menu" >
+              <span className="mobile__menu">
                 <i class="ri-menu-line"></i>
               </span>
             </div>
           </div>
-      </div>
+            </Row>
+          </Container>
     </header>
   );
 };
