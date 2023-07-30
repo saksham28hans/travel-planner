@@ -5,10 +5,12 @@ import './TourCard.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { AuthContext } from '../context/authContext/AuthContext';
+import axios from "axios";
 // import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const TourCard = ({ tour }) => {
   const { _id, landmark, img, city, expenses, featured,reviews,rating,totalRating } = tour;
   const {user} = useContext(AuthContext);
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   // const totalRating = reviews?.reduce((acc, item) => acc + item.rating, 0);
   // const avgRating =
   //   totalRating === 0
@@ -17,8 +19,20 @@ const TourCard = ({ tour }) => {
   //     ? totalRating
   //     : (totalRating / reviews?.length).toFixed(1);
 
-      const handleFavoriteClick =  () => {
-    
+      const handleFavoriteClick =  async() => {
+              if(!user)
+              {
+                alert("Please login to add this in your favourite list")
+              }
+              else
+              {
+                try {
+                  await axiosInstance.post(`/users/favourite`,{id:user._id,destination:_id});
+                  
+                } catch (error) {
+                 console.log(error);
+                }
+              }
       };
   return (
     <div className="tour__card">
@@ -33,7 +47,7 @@ const TourCard = ({ tour }) => {
               <i class="ri-map-pin-line"></i> {city}
             </span>
             <span className="tour__location d-flex align-items-center gap-1 justify-content-between">
-            { user?.favourite.includes(_id) ? <FavoriteIcon  style={{cursor: 'pointer',color: '#f00909'}}/> : <FavoriteBorderIcon style={{cursor: 'pointer',color: '#f00909'}}/>}
+            { user?.favourite.includes(_id) ? <FavoriteIcon  style={{cursor: 'pointer',color: '#f00909'}} onClick={handleFavoriteClick} /> : <FavoriteBorderIcon style={{cursor: 'pointer',color: '#f00909',zIndex:'10'}} onClick={handleFavoriteClick}/>}
             <i class="ri-star-fill"></i> {totalRating === 0 ? null : rating/totalRating}
               {totalRating === 0 ? 'Not rated' : <span>({totalRating})</span>}
             </span>
