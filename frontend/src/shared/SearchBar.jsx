@@ -3,20 +3,22 @@ import './search-bar.css';
 import { Container,Col, Form, FormGroup } from 'reactstrap';
 import MyMap from '../components/MyMap/MyMap';
 
-const SearchBar = () => {
+const SearchBar = ({setfilter}) => {
   const locationRef = useRef('');
-  const distanceRef = useRef(0);
-  const maxGroupSizeRef = useRef(0);
+  // const distanceRef = useRef(0);
+  // const maxGroupSizeRef = useRef(0);
 
   const searchHandler = async () => {
     const location = locationRef.current.value;
-    const distance = distanceRef.current.value;
-    const maxGroupSize = maxGroupSizeRef.current.value;
+    // console.log(location)
+    setfilter(location)
+    // const distance = distanceRef.current.value;
+    // const maxGroupSize = maxGroupSizeRef.current.value;
   
-  console.log(location, distance, maxGroupSize);
-    if (location === '' || distance === '' || maxGroupSize === '') {
-      return alert('All fields are required');
-    }
+  // console.log(location, distance, maxGroupSize);
+  //   if (location === '' || distance === '' || maxGroupSize === '') {
+  //     return alert('All fields are required');
+  //   }
   };
   return (
     <Col lg="12">
@@ -35,7 +37,7 @@ const SearchBar = () => {
               ></input>
             </div>
           </FormGroup>
-          <FormGroup className="d-flex gap-3 form__group form__group-fast">
+          {/* <FormGroup className="d-flex gap-3 form__group form__group-fast">
             <span>
               <i class="ri-map-pin-time-line"></i>
             </span>
@@ -47,8 +49,8 @@ const SearchBar = () => {
                 ref={distanceRef}
               ></input>
             </div>
-          </FormGroup>
-          <FormGroup className="d-flex gap-3 form__group form__group-last">
+          </FormGroup> */}
+          {/* <FormGroup className="d-flex gap-3 form__group form__group-last">
             <span>
               <i class="ri-group-line"></i>
             </span>
@@ -60,15 +62,15 @@ const SearchBar = () => {
                 ref={maxGroupSizeRef}
               ></input>
             </div>
-          </FormGroup>
+          </FormGroup> */}
           <span className="search__icon" type="submit" onClick={searchHandler}>
             <i class="ri-search-line"></i>
           </span>
         </Form>
         <div>
-        <Container className='map'>
+        {/* <Container className='map'>
           <MyMap/>
-        </Container>
+        </Container> */}
         </div>
       </div>
     </Col>

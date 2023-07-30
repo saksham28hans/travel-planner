@@ -1,43 +1,60 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import '../styles/tour-details.css';
 import { Container, Row, Col, Form, ListGroup } from 'reactstrap';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import tourData from '../assets/data/tours';
 import avatar from '../assets/images/avatar.jpg';
+import { AuthContext } from '../context/authContext/AuthContext';
+import axios from "axios";
 
 const TourDetails = () => {
   const { id } = useParams();
-
+  const location = useLocation();
   const reviewMsgRef = useRef('');
-  const [tourRating, setTourRating] = useState(null);
+  const [tourRating, setTourRating] = useState(3);
+  const { user, dispatch } = useContext(AuthContext);
+  const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
 
-
-  const tour = tourData.find((tour) => tour.id === id);
+  const tour = location.state.tour;
   const {
-    photo,
-    title,
-    desc,
-    price,
+    img,
+    landamrk,
+    popularAttractions,
+    expenses,
     reviews,
     city,
-    distance,
-    maxGroupSize,
-    address,
+    rating,
+    totalRating,
+    _id
   } = tour;
-  const totalRating = reviews?.reduce((acc, item) => acc + item.rating, 0);
-  const avgRating =
-    totalRating === 0
-      ? ''
-      : totalRating === 1
-      ? totalRating
-      : (totalRating / reviews?.length).toFixed(1);
+  // const totalRating = reviews?.reduce((acc, item) => acc + item.rating, 0);
+  // const avgRating =
+  //   totalRating === 0
+  //     ? ''
+  //     : totalRating === 1
+  //     ? totalRating
+  //     : (totalRating / reviews?.length).toFixed(1);
 
 
   const options = { day: 'numeric', month: 'long', year: 'numeric' };
   const submitHandler = async (e) => {
     e.preventDefault();
-   
-
+    //console.log(reviewMsgRef.current.value)
+    // console.log(tourRating)
+    // console.log(user)
+    if(!user)
+    {
+      alert("Please Login to give a review")
+    }
+    else
+    {
+      try {
+        await axiosInstance.put(`/destination/review/${_id}`,{username:user.username,message:reviewMsgRef.current.value});
+        await axiosInstance.put(`/destination/rating/${_id}`,{id:tourRating});
+      } catch (error) {
+       console.log(error);
+      }
+    }
   };
 
   useEffect(() => {
@@ -50,26 +67,26 @@ const TourDetails = () => {
             <Row>
               <Col lg="8">
                 <div className="tour__content">
-                  <img src={photo} alt=""></img>
+                  <img src={img} alt=""></img>
                   <div className="tour__info">
-                    <h2>{title}</h2>
+                    <h2>{landamrk}</h2>
                     <div className="d-flex align-items-center gap-5">
                       <span className="tour__rating d-flex align-items-center gap-1">
                         <i
                           class="ri-star-fill"
                           style={{ color: 'var(--secondary-color)' }}
                         ></i>
-                        {avgRating === 0 ? null : avgRating}
+                        {totalRating === 0 ? null : (rating/totalRating)}
                         {totalRating === 0 ? (
                           'Not rated'
                         ) : (
-                          <span>({reviews.length})</span>
+                          <span>({totalRating})</span>
                         )}
                       </span>
-                      <span>
+                      {/* <span>
                         <i class="ri-map-pin-fill"></i>
                         {address}
-                      </span>
+                      </span> */}
                     </div>
                     <div className="tour__extra-details">
                       <span>
@@ -77,19 +94,23 @@ const TourDetails = () => {
                         {city}
                       </span>
                       <span>
-                        <i class="ri-money-dollar-circle-line"></i>${price}
+                        <i class="ri-money-dollar-circle-line"></i>${expenses}
                       </span>
-                      <span>
+                      {/* <span>
                         <i class="ri-map-pin-time-line"></i>
                         {distance} k/m
-                      </span>
-                      <span>
+                      </span> */}
+                      {/* <span>
                         <i class="ri-group-line"></i>
                         {maxGroupSize} /per people
-                      </span>
+                      </span> */}
                     </div>
-                    <h5>Description</h5>
-                    <p>{desc}</p>
+                    <h5>Popular Attractions</h5>
+                    {
+                    popularAttractions.map((att)=>(
+                      <p key={att}>{att}</p>
+                    ))
+                    }
                   </div>
                   <div className="tour__reviews mt-4">
                     <h4>Reviews ({reviews?.length} reviews)</h4>
@@ -137,16 +158,16 @@ const TourDetails = () => {
                             <div className="d-flex align-items-center justify-content-between">
                               <div>
                                 <h5>{review.username}</h5>
-                                <p>
+                                {/* <p>
                                 {new Date(review.createdAt).toLocaleDateString('en-US', options)}
-                              </p>
+                              </p> */}
                               </div>
 
-                              <span className="d-flex align-items-center">
+                              {/* <span className="d-flex align-items-center">
                                 {review.rating}<i class="ri-star-s-fill"></i>
-                              </span>
+                              </span> */}
                             </div>
-                            <h6>{review.reviewText}</h6>
+                            <h6>{review.message}</h6>
                           </div>
                         </div>
                       ))}

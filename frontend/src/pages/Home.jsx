@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/home.css";
 import Carousels from "../components/Carousel/Carousel";
 import SearchBar from "../shared/SearchBar";
@@ -7,6 +7,7 @@ import Subtitle from '../shared/Subtitle';
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList";
 import MassonryGalleryImages from "../components/Image-gallery/MassonryGalleryImages";
 const Home = () => {
+  const [filter, setfilter] = useState("");
   return (
     <>
       <section>
@@ -19,7 +20,7 @@ const Home = () => {
       <section>
       <Container>
         <Row>
-        <SearchBar/>
+        <SearchBar setfilter={setfilter}/>
         </Row>
         </Container>
       </section>
@@ -30,7 +31,7 @@ const Home = () => {
               <Subtitle subtitle={'Explore'} />
               <h2 className="featured__tour-title">Our featured tours</h2>
             </Col>
-            <FeaturedTourList />
+            <FeaturedTourList filter={filter}/>
           </Row>
         </Container>
       </section>

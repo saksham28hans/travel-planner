@@ -54,7 +54,7 @@ const Header = () => {
           </div>
           <div className="nav__right d-flex align-items-center gap-4">
             <div className="nav__btns d-flex align-item-center gap-4">
-              {false ? (
+              {user ? (
                 <>
                   <h5 style={{ margin: "auto" }}>{user.username}</h5>
                   <Button

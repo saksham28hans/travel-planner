@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const DestinationSchema =new mongoose.Schema({
     landmark : {type:String,required:true,unique:true},
     city : {type:String,required:true},
+    img : {type:String,default:""},
     popularAttractions : {type:Array},
     expenses : {type:String},
     reviews : {type:Array},
