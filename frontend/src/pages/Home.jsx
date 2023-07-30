@@ -6,17 +6,22 @@ import { Col, Container, Row } from "reactstrap";
 import Subtitle from '../shared/Subtitle';
 import FeaturedTourList from "../components/Featured-tours/FeaturedTourList";
 import MassonryGalleryImages from "../components/Image-gallery/MassonryGalleryImages";
+import Itinerary from "../components/Itinerary/Itinerary";
 const Home = () => {
   const [filter, setfilter] = useState("");
+  const [user, setuser] = useState(true);
   return (
     <>
-      <section>
+      {user?(<section>
       <Container>
         <Row>
           <Carousels/>
           </Row>
       </Container>
-      </section>
+      </section>):(
+        <section>
+        <Itinerary/>
+      </section>)}
       <section>
       <Container>
         <Row>

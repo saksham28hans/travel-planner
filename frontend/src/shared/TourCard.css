@@ -23,6 +23,18 @@
   margin-left: 5% !important;
   cursor: pointer;
 }
+.itinerary{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: max-content;
+  height: max-content;
+  z-index: 10;
+  background: #FFA500;
+  color: #0c0b0b;
+  padding: 0.3rem 0.5rem;
+  border-radius: 3px 0 0 0;
+}
 
 .tour__img {
   position: relative;

@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './TourCard.css';
@@ -10,6 +10,7 @@ import axios from "axios";
 const TourCard = ({ tour }) => {
   const { _id, landmark, img, city, expenses, featured,reviews,rating,totalRating } = tour;
   const {user} = useContext(AuthContext);
+  const [itinerary, setitinerary] = useState(true);
   const axiosInstance = axios.create({baseURL:process.env.REACT_APP_API_URL});
   // const totalRating = reviews?.reduce((acc, item) => acc + item.rating, 0);
   // const avgRating =
@@ -39,6 +40,8 @@ const TourCard = ({ tour }) => {
       <Card>
         <div className="tour__img">
           <img src={img} alt="tour-img" />
+          {itinerary && <div className="itinerary" >Day 1</div>}
+          <div className="heart" onClick={()=>{handleFavoriteClick()}}>{ false? <FavoriteIcon /> : <FavoriteBorderIcon />}</div>
           {featured && <span>Featured</span>}
         </div>
         <CardBody>

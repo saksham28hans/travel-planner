@@ -5,6 +5,7 @@
   background: #ffffff;
   display: flex;
   align-items: center;
+  z-index: 99;
 }
 .logo{
   width: 30%;
