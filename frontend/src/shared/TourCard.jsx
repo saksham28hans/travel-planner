@@ -2,6 +2,8 @@ import React from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './TourCard.css';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 const TourCard = ({ tour }) => {
   const { _id, title, photo, city, price, featured,reviews } = tour;
 
@@ -12,11 +14,16 @@ const TourCard = ({ tour }) => {
       : totalRating === 1
       ? totalRating
       : (totalRating / reviews?.length).toFixed(1);
+
+      const handleFavoriteClick =  () => {
+    
+      };
   return (
     <div className="tour__card">
       <Card>
         <div className="tour__img">
           <img src={photo} alt="tour-img" />
+          <div className="heart" onClick={()=>{handleFavoriteClick()}}>{ false? <FavoriteIcon /> : <FavoriteBorderIcon />}</div>
           {featured && <span>Featured</span>}
         </div>
         <CardBody>
