@@ -31,7 +31,7 @@ const Home = () => {
               <Subtitle subtitle={'Explore'} />
               <h2 className="featured__tour-title">Our featured tours</h2>
             </Col>
-            <FeaturedTourList filter={filter}/>
+            <FeaturedTourList  filter={filter}/>
           </Row>
         </Container>
       </section>

@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Card, CardBody } from 'reactstrap';
 import { Link } from 'react-router-dom';
 import './TourCard.css';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { AuthContext } from '../context/authContext/AuthContext';
+// import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
 const TourCard = ({ tour }) => {
   const { _id, landmark, img, city, expenses, featured,reviews,rating,totalRating } = tour;
-
+  const {user} = useContext(AuthContext);
   // const totalRating = reviews?.reduce((acc, item) => acc + item.rating, 0);
   // const avgRating =
   //   totalRating === 0
@@ -22,19 +24,24 @@ const TourCard = ({ tour }) => {
     <div className="tour__card">
       <Card>
         <div className="tour__img">
-          <img src={photo} alt="tour-img" />
-          <div className="heart" onClick={()=>{handleFavoriteClick()}}>{ false? <FavoriteIcon /> : <FavoriteBorderIcon />}</div>
+          <img src={img} alt="tour-img" />
           {featured && <span>Featured</span>}
         </div>
         <CardBody>
           <div className="card__top d-flex align-items-center justify-content-between">
-            <span className="tour__location d-flex align-items-center gap-1">
+            <span className="tour__location d-flex align-items-center gap-2">
               <i class="ri-map-pin-line"></i> {city}
             </span>
-            <span className="tour__rating d-flex align-items-center gap-1">
-              <i class="ri-star-fill"></i> {totalRating === 0 ? null : rating/totalRating}
+            <span className="tour__location d-flex align-items-center gap-1 justify-content-between">
+            { user?.favourite.includes(_id) ? <FavoriteIcon  style={{cursor: 'pointer',color: '#f00909'}}/> : <FavoriteBorderIcon style={{cursor: 'pointer',color: '#f00909'}}/>}
+            <i class="ri-star-fill"></i> {totalRating === 0 ? null : rating/totalRating}
               {totalRating === 0 ? 'Not rated' : <span>({totalRating})</span>}
             </span>
+            {/* <div className="heart" onClick={()=>{handleFavoriteClick()}}>{ false? <FavoriteIcon /> : <FavoriteBorderIcon />}</div> */}
+            {/* <span className="tour__rating d-flex align-items-center gap-1">
+              <i class="ri-star-fill"></i> {totalRating === 0 ? null : rating/totalRating}
+              {totalRating === 0 ? 'Not rated' : <span>({totalRating})</span>}
+            </span> */}
           </div>
           <h5 className="tour__title">
             <Link to={`/tours/${_id}`} state = {{tour : tour}}>{landmark}</Link>
